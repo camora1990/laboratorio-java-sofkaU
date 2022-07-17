@@ -7,7 +7,6 @@ import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import org.sofka.utilities.PrintLogger;
 
-
 import static org.sofka.bootstrap.DataBaseConnection.getDatabase;
 
 
