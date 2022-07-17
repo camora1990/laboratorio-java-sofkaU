@@ -125,7 +125,7 @@ public class ViewGame {
             input = verifyEmail();
             player = PlayerService.getPlayer(input);               // obtiene la sesion del jugador
             if (player == null) {
-                customMessage("jugadorinvalido");
+                customMessage("Jugador invalido");
             }
 
         } while (player == null);
