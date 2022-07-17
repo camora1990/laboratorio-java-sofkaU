@@ -34,5 +34,6 @@ public class Player {
         this.name = name;
         this.points=0L;
         this.email = email;
+        this.level = 0;
     }
 }
