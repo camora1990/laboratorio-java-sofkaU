@@ -33,7 +33,7 @@ public class ViewGame {
         welcomeMessage();
         instructions();
 
-        if (!Objects.requireNonNull(getString()).toUpperCase().equalsIgnoreCase("0")) {
+        if (!Objects.requireNonNull(getString()).equalsIgnoreCase("0")) {
 
             do {
                 customMessage("[1.] Inicio de sesión\n[2.] Registrarme");
@@ -89,7 +89,7 @@ public class ViewGame {
      *
      * @param value - si la respuesta es correcta o no
      * @param player - Jugador que selcciona la opcion
-     * @return
+     * @return - retorna si el juegador quiere continuarl el juego
      */
     private static Boolean continueGame(Boolean value, Player player) {
         Integer response;
@@ -100,7 +100,7 @@ public class ViewGame {
             gameOverMessage(player);                // Mensaje que muestra al jugador perdedor
         }
 
-        /**
+        /*
          * Valida si quiere seguir jugando o salir del juego
          */
         do {
@@ -115,7 +115,7 @@ public class ViewGame {
 
     /**
      * Metodo encargado de iniciar seseion al jugador
-     * @return
+     * @return - Retorna e jugador
      */
     private static Player login() {
         String input;
