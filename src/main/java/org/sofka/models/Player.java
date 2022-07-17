@@ -1,6 +1,6 @@
 package org.sofka.models;
 
-import com.mongodb.BasicDBObject;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
