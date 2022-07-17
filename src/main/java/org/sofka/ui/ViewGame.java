@@ -9,10 +9,24 @@ import java.util.Objects;
 import static org.sofka.utilities.GetInputScanner.getInteger;
 import static org.sofka.utilities.GetInputScanner.getString;
 import static org.sofka.utilities.Messages.*;
-import static org.sofka.utilities.Messages.customMessage;
+
+/**
+ * Clase utilizada creada para la vista de juego con sus menu y mensajes
+ *  @author Camilo Morales S - Camilo Castañeda
+ */
 
 public class ViewGame {
+
+    // Propiedad tipo juego para guardar informacion de la partida
     private static Game game = null;
+
+    private ViewGame() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    /**
+     * Metodo estatico para visualizar el menu inicial con las instrucciones del juego
+     */
     public static void menuGame(){
         Integer input;
         Player player = null;
@@ -37,24 +51,32 @@ public class ViewGame {
         customMessage("Gracias por participar");
     }
 
+    /**
+     * Metodo para inicio de juego con
+     * @param player - jugador que inicia la partida
+     */
     private static void initGame(Player player) {
-        informationLevelPoint(player);
+
+        informationLevelPoint(player);                   // Informacion del juegador con sus puntos y nivel en el que se encuentra
         getString();
 
         Integer input;
-        game = new Game(player.getLevel(), player);
+        game = new Game(player.getLevel(), player);     // Instacia del juego
         Boolean next;
-        game.initGame();
+        game.initGame();                                // Llama la funcion inicair juego del objeto game
         do {
 
             do {
-                customMessage(game.getCategory().toString());
-                customMessage("Selecciona una opción entre [1-4]");
+                customMessage(game.getCategory().toString());  // Muestra las opciones y pregunta correspondiente a la categoria
+                customMessage("Selecciona una opción entre [1-4] o [0] para salir");
                 input = getInteger();
-            } while (input < 1 || input > 4);
-            next = game.verifyOption(input - 1);
+            } while (input < 0 || input > 4);
+            if (input == 0) {
+                return;
+            }
+            next = game.verifyOption(input - 1);               // Verifica si la opcion seleccionada es la correcta
             if (game.getLevel() < 6 && next) {
-                correctAnswer(player);
+                correctAnswer(player);                        // Invoca metodo respuesta correcta
             } else {
                 next = continueGame(next, player);
             }
@@ -63,13 +85,24 @@ public class ViewGame {
         } while (next);
     }
 
+    /**
+     *
+     * @param value - si la respuesta es correcta o no
+     * @param player - Jugador que selcciona la opcion
+     * @return
+     */
     private static Boolean continueGame(Boolean value, Player player) {
         Integer response;
+
         if (value) {
-            winnerMessage(player);
+            winnerMessage(player);                  // Mensaje que muestra al jugador ganador
         } else {
-            gameOverMessage(player);
+            gameOverMessage(player);                // Mensaje que muestra al jugador perdedor
         }
+
+        /**
+         * Valida si quiere seguir jugando o salir del juego
+         */
         do {
             response = getInteger();
             if (response < 0 || response > 1) {
@@ -80,21 +113,30 @@ public class ViewGame {
         return response != 0;
     }
 
+    /**
+     * Metodo encargado de iniciar seseion al jugador
+     * @return
+     */
     private static Player login() {
         String input;
         Player player = null;
 
         do {
             input = verifyEmail();
-            player = PlayerService.getPlayer(input);
+            player = PlayerService.getPlayer(input);               // obtiene la sesion del jugador
             if (player == null) {
-                customMessage("Usuario invalido");
+                customMessage("jugdor invalido");
             }
 
         } while (player == null);
         return player;
     }
 
+
+    /**
+     * Metodo encargado de hacer registro nuevo jugdor
+     * @return retorna el jugador creado
+     */
     private static Player singUp() {
         Player player = null;
         String inputName;
@@ -108,11 +150,16 @@ public class ViewGame {
         while (player == null) {
             customMessage("El email ya se encuentra registrado en la base de datos");
             inputEmail = verifyEmail();
-            player = PlayerService.createPlayer(inputName, inputEmail);
+            player = PlayerService.createPlayer(inputName, inputEmail);     //Crea el jugdor nuevo
         }
         return player;
     }
 
+
+    /**
+     * Funcion que valida si el email es correcto
+     * @return - El correo valido
+     */
     private static String verifyEmail() {
         String input;
         do {
