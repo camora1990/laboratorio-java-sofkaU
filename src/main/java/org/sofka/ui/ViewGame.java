@@ -125,7 +125,7 @@ public class ViewGame {
             input = verifyEmail();
             player = PlayerService.getPlayer(input);               // obtiene la sesion del jugador
             if (player == null) {
-                customMessage("jugdor invalido");
+                customMessage("jugadorinvalido");
             }
 
         } while (player == null);
@@ -150,7 +150,7 @@ public class ViewGame {
         while (player == null) {
             customMessage("El email ya se encuentra registrado en la base de datos");
             inputEmail = verifyEmail();
-            player = PlayerService.createPlayer(inputName, inputEmail);     //Crea el jugdor nuevo
+            player = PlayerService.createPlayer(inputName, inputEmail);     //Crea el jugador nuevo
         }
         return player;
     }
