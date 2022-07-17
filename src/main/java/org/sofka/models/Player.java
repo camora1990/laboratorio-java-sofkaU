@@ -4,6 +4,7 @@ import com.mongodb.BasicDBObject;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.bson.types.ObjectId;
 
 /**
  * Clase que representa el jugador que empieza el juego
@@ -13,7 +14,7 @@ import lombok.ToString;
 public class Player {
     @Getter
     @Setter
-    private BasicDBObject _id;
+    private ObjectId _id;
     @Getter @Setter
     private String name;
     @Getter @Setter
@@ -32,5 +33,6 @@ public class Player {
     public Player(String name, String email) {
         this.name = name;
         this.points=0L;
+        this.email = email;
     }
 }
